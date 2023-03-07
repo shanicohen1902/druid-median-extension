@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.druid.example.aggregator;
+package io.druid.median.aggregator;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

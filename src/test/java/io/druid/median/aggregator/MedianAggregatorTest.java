@@ -1,4 +1,4 @@
-package io.druid.example.aggregator;
+package io.druid.median.aggregator;
 
 import junit.framework.TestCase;
 import org.apache.druid.query.aggregation.TestObjectColumnSelector;

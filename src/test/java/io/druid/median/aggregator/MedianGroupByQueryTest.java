@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package io.druid.example.aggregator;
+package io.druid.median.aggregator;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
@@ -29,15 +29,7 @@ import org.apache.druid.data.input.Row;
 import org.apache.druid.java.util.common.DateTimes;
 import org.apache.druid.java.util.common.granularity.Granularities;
 import org.apache.druid.query.QueryRunnerTestHelper;
-import org.apache.druid.query.Result;
-import org.apache.druid.query.dimension.DefaultDimensionSpec;
 import org.apache.druid.query.groupby.*;
-import org.apache.druid.query.groupby.orderby.OrderByColumnSpec;
-import org.apache.druid.query.topn.TopNQuery;
-import org.apache.druid.query.topn.TopNQueryBuilder;
-import org.apache.druid.query.topn.TopNQueryEngine;
-import org.apache.druid.query.topn.TopNResultValue;
-import org.apache.druid.segment.TestHelper;
 import org.apache.druid.segment.incremental.IncrementalIndex;
 import org.apache.druid.segment.incremental.IncrementalIndexSchema;
 import org.apache.druid.segment.incremental.IncrementalIndexStorageAdapter;
@@ -50,11 +42,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class MedianGroupByQueryTest extends InitializedNullHandlingTest {
     private CloseableStupidPool<ByteBuffer> pool;

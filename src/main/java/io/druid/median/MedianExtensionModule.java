@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package io.druid.example;
+package io.druid.median;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Binder;
-import io.druid.example.aggregator.MedianAggregatorFactory;
+import io.druid.median.aggregator.MedianAggregatorFactory;
 import org.apache.druid.initialization.DruidModule;
 
 import java.util.List;

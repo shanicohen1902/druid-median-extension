@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.druid.example.aggregator;
+package io.druid.median.aggregator;
 
 import org.apache.druid.query.aggregation.Aggregator;
 import org.apache.druid.segment.BaseFloatColumnValueSelector;
