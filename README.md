@@ -1,13 +1,13 @@
 ## Druid Median Extension
 
-This extension allow executing query aggregation on Druid db using median function 
+The median extension allows executing query aggregation tasks on Druid db
 
 ### Build
 
 To build the extension, run `mvn package` and you'll get a file in `target` like this:
 
 ```
-[INFO] Building tar: /src/druid-median-extension/target/druid-median-extension-0.13.0_1-SNAPSHOT-bin.tar.gz
+[INFO] Building tar: /src/druid-median-extension/target/druid-median-extension-0.24.0-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -38,29 +38,38 @@ too.
 ### Use
 
 #### Wiki example
-To use the example extractionFn, call it like a normal extractionFn with type "example", e.g. in a
-topN. It returns the first "length" characters of each value.
+To use the median aggregation, call it like a normal aggregation with type "median", e.g. in a
+topN. It returns the median value of each value.
 
 ```json
 {
-  "queryType": "topN",
-  "dataSource": "wikiticker",
+  "queryType": "groupBy",
+  "dataSource": "wikipedia",
   "intervals": [
     "2016-06-27/2016-06-28"
   ],
   "granularity": "all",
-  "dimension": {
-    "type": "extraction",
-    "dimension": "page"
-  },
-  "metric": "edits",
-  "threshold": 25,
+  "dimensions": ["cityName"],
   "aggregations": [
     {
       "type": "median",
-      "name": "edits",
-      "fieldName": "count"
+      "name": "commentLengthMedian",
+      "fieldName": "commentLength"
     }
   ]
 }
 ```
+
+result -
+
+| cityName   | commentLengthMedian |
+|------------|---------------------|
+| null       | 1                   |
+| A Coruña   | 30                  |
+| Aachen     | 23                  |
+| Abbotsford | 10                  |
+| Abu Dhabi  | 15                  |
+| Afragola   | 40                  |
+| Aglayan    | 11                  |
+| Ahmedabad  | 13                  |
+| Al Ain     | 24                  |
