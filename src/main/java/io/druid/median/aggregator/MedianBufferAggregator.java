@@ -40,16 +40,15 @@ public class MedianBufferAggregator implements BufferAggregator
   @Override
   public void init(final ByteBuffer buf, final int position)
   {
-    // The amount of space here is given by getMaxIntermediateSize in the factory.
     buf.putDouble(position, 0.0d);
   }
 
-  // index time
   @Override
   public final void aggregate(ByteBuffer buf, int position)
   {
     Queue<Float> minHeap = getMinHeapCollection(position);
     Queue<Float> maxHeap = getMaxHeapCollection(position);
+
     float num = selector.getFloat();
     if (minHeap.size() == maxHeap.size()) {
       maxHeap.offer(num);
@@ -59,10 +58,10 @@ public class MedianBufferAggregator implements BufferAggregator
       maxHeap.offer(minHeap.poll());
     }
 
-    Float median;
+    float median = 0;
     if (minHeap.size() > maxHeap.size()) {
       median = minHeap.peek();
-    } else {
+    } else if(maxHeap.size() > 0){
       median = (minHeap.peek() + maxHeap.peek()) / 2;
     }
 

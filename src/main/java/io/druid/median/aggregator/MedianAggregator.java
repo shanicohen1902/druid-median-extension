@@ -32,7 +32,6 @@ public class MedianAggregator implements Aggregator
   public MedianAggregator(BaseFloatColumnValueSelector selector)
   {
     this.selector = selector;
-
     minHeap = new PriorityQueue<>();
     maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
   }

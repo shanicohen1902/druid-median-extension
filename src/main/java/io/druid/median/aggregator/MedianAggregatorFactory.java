@@ -55,7 +55,7 @@ public class MedianAggregatorFactory extends AggregatorFactory
 
   private static double combineValues(Object lhs, Object rhs)
   {
-    return ((Number) lhs).doubleValue() + ((Number) rhs).doubleValue();
+    return ((Number) lhs).doubleValue() + ((Number) rhs).doubleValue() / 2;
   }
 
   private final String name;
