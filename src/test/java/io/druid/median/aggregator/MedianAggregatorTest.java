@@ -38,6 +38,29 @@ public class MedianAggregatorTest extends TestCase {
         assertEquals(4.9f, aggregator.getDouble(), 0.001);
     }
 
+    @Test
+    public void testAggregatorDouble()
+    {
+        Double[] values = new Double[2];
+        values[0] = 9.7d;
+        values[1] = 0.1d;
+        selector = new TestObjectColumnSelector<>(values);
+        selectorFactory = EasyMock.createMock(ColumnSelectorFactory.class);
+        EasyMock.expect(selectorFactory.makeColumnValueSelector("test")).andReturn(selector);
+        EasyMock.replay(selectorFactory);
+
+        MedianAggregatorFactory medianAggregatorFactory = new MedianAggregatorFactory("test","test");
+        MedianAggregator aggregator = (MedianAggregator) medianAggregatorFactory.factorize(selectorFactory);
+
+        Assert.assertEquals(0.0f, aggregator.get());
+
+        for (Double value : values) {
+            aggregate(selector, aggregator);
+        }
+
+        assertEquals(4.9f, aggregator.getDouble(), 0.001);
+    }
+
     private void aggregate(TestObjectColumnSelector selector, MedianAggregator agg)
     {
         agg.aggregate();

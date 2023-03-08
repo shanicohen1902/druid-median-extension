@@ -98,7 +98,6 @@ public class MedianTopNQueryTest extends InitializedNullHandlingTest
         .setMaxRowCount(1000)
         .build();
 
-
     index.add(
         new MapBasedInputRow(
             timestamp,
