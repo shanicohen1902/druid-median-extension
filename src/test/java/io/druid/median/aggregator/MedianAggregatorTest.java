@@ -89,10 +89,52 @@ public class MedianAggregatorTest extends TestCase {
         }
 
         assertEquals(4.9, aggregator.getDouble(buffer, 0), 0.01);
+    }
 
+    @Test
+    public void testBufferAggregatorSingleValue()
+    {
+        Float[] values = new Float[1];
+        values[0] = 9.7f;
+        selector = new TestObjectColumnSelector<>(values);
+        selectorFactory = EasyMock.createMock(ColumnSelectorFactory.class);
+        EasyMock.expect(selectorFactory.makeColumnValueSelector("test")).andReturn(selector);
+        EasyMock.replay(selectorFactory);
+
+        MedianAggregatorFactory medianAggregatorFactory = new MedianAggregatorFactory("test","test");
+        MedianBufferAggregator aggregator = (MedianBufferAggregator) medianAggregatorFactory.factorizeBuffered(selectorFactory);
+
+        ByteBuffer buffer = ByteBuffer.wrap(new byte[Long.BYTES]);
         aggregator.init(buffer, 0);
 
-        Assert.assertEquals(0.0, aggregator.get(buffer, 0));
+        for (Float value : values) {
+            aggregate(selector, aggregator, buffer, 0);
+        }
+
+        assertEquals(9.7, aggregator.getDouble(buffer, 0), 0.01);
+    }
+
+    @Test
+    public void testBufferAggregatorZero()
+    {
+        Float[] values = new Float[10];
+        values[1] = 9.7f;
+        selector = new TestObjectColumnSelector<>(values);
+        selectorFactory = EasyMock.createMock(ColumnSelectorFactory.class);
+        EasyMock.expect(selectorFactory.makeColumnValueSelector("test")).andReturn(selector);
+        EasyMock.replay(selectorFactory);
+
+        MedianAggregatorFactory medianAggregatorFactory = new MedianAggregatorFactory("test","test");
+        MedianBufferAggregator aggregator = (MedianBufferAggregator) medianAggregatorFactory.factorizeBuffered(selectorFactory);
+
+        ByteBuffer buffer = ByteBuffer.wrap(new byte[Long.BYTES]);
+        aggregator.init(buffer, 0);
+
+        for (Float value : values) {
+            aggregate(selector, aggregator, buffer, 0);
+        }
+
+        assertEquals(0, aggregator.getDouble(buffer, 0), 0.01);
     }
 
     private void aggregate(TestObjectColumnSelector selector, MedianBufferAggregator agg, ByteBuffer buf, int pos)
